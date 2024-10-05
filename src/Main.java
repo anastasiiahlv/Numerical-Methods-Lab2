@@ -10,12 +10,19 @@ public class Main {
 
         System.out.println();
 
+        double det = Matrix.determinant(matrix);
+        System.out.println("Determinant A: " + det);
+
+        System.out.println();
+
         System.out.println("Inverse matrix  A^(-1): ");
         double[][] invertMatrix = Matrix.invertMatrix(matrix);
         Matrix.printMatrix(invertMatrix);
 
-        //System.out.println(Matrix.calculateMatrixNorm(matrix));
-        //System.out.println(Matrix.calculateMatrixNorm(invertMatrix));
+        System.out.println();
+
+        System.out.println("A norm: " + Matrix.calculateMatrixNorm(matrix));
+        System.out.println("A^-1 norm: " + Matrix.calculateMatrixNorm(invertMatrix));
 
         double conditionNumber = Matrix.calculateConditionNumber(Matrix.calculateMatrixNorm(matrix), Matrix.calculateMatrixNorm(invertMatrix));
         System.out.println("Condition number: " + conditionNumber);
@@ -52,10 +59,12 @@ public class Main {
                     case 1:
                         double[] solution = ThomasAlgorithm.method(n);
 
-                        System.out.println("Solution:");
+                        System.out.println("Result:");
                         for (double x_i : solution) {
                             System.out.println(x_i);
                         }
+
+                        System.out.println();
 
                         resultOutput(n);
                         break;
@@ -71,6 +80,7 @@ public class Main {
                         double[] initialElements = new double[n];
                         System.out.println("Enter the initial approximation (" + n + " elements): ");
                         for(int i = 0; i < n; i++) {
+                            System.out.print("Element [" + (i+1) + "] = " );
                             while (!sc.hasNextDouble()) {
                                 System.out.println("Invalid input. Please enter a valid number: ");
                                 sc.next();

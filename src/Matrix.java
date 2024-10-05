@@ -94,4 +94,47 @@ public class Matrix {
         return maxColumnSum;
     }
 
+    public static double determinant(double[][] matrix) {
+        int n = matrix.length;
+
+        if (matrix[0].length != n) {
+            throw new IllegalArgumentException("Матриця повинна бути квадратною");
+        }
+
+        if (n == 2) {
+            return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
+        }
+
+        double det = 0;
+
+        for (int i = 0; i < n; i++) {
+            double[][] subMatrix = createSubMatrix(matrix, 0, i);
+            det += Math.pow(-1, i) * matrix[0][i] * determinant(subMatrix);
+        }
+
+        return det;
+    }
+
+    private static double[][] createSubMatrix(double[][] matrix, int excludingRow, int excludingCol) {
+        int n = matrix.length;
+        double[][] subMatrix = new double[n - 1][n - 1];
+        int row = -1;
+
+        for (int i = 0; i < n; i++) {
+            if (i == excludingRow) {
+                continue;
+            }
+            row++;
+            int col = -1;
+            for (int j = 0; j < n; j++) {
+                if (j == excludingCol) {
+                    continue;
+                }
+                col++;
+                subMatrix[row][col] = matrix[i][j];
+            }
+        }
+
+        return subMatrix;
+    }
 }
