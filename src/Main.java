@@ -8,24 +8,18 @@ public class Main {
         System.out.println("Matrix A: ");
         Matrix.printMatrix(matrix);
 
-        System.out.println();
-
-        double det = Matrix.determinant(matrix);
-        System.out.println("Determinant A: " + det);
-
-        System.out.println();
-
-        System.out.println("Inverse matrix  A^(-1): ");
-        double[][] invertMatrix = Matrix.invertMatrix(matrix);
+        System.out.println("\nInverse matrix  A^(-1): ");
+        double[][] invertMatrix = ThomasAlgorithm.inverseMatrix(n);
         Matrix.printMatrix(invertMatrix);
 
-        System.out.println();
+        double det = ThomasAlgorithm.determinant;
+        System.out.println("\nDeterminant A: " + det);
 
-        System.out.println("A norm: " + Matrix.calculateMatrixNorm(matrix));
+        System.out.println("\nA norm: " + Matrix.calculateMatrixNorm(matrix));
         System.out.println("A^-1 norm: " + Matrix.calculateMatrixNorm(invertMatrix));
 
         double conditionNumber = Matrix.calculateConditionNumber(Matrix.calculateMatrixNorm(matrix), Matrix.calculateMatrixNorm(invertMatrix));
-        System.out.println("Condition number: " + conditionNumber);
+        System.out.println("\nCondition number: " + conditionNumber);
     }
 
     public static void main(String[] args) {
@@ -57,12 +51,18 @@ public class Main {
 
                 switch (selectedMethod) {
                     case 1:
-                        double[] solution = ThomasAlgorithm.method(n);
+                        double[] b = new double[n];
+                        for(int i = 0; i < n; i++) {
+                            b[i] = i+1;
+                        }
+                        double[] solution = ThomasAlgorithm.method(n, b);
 
                         System.out.println("Result:");
                         for (double x_i : solution) {
                             System.out.println(x_i);
                         }
+
+                        System.out.println("\nDeterminant A = " + ThomasAlgorithm.determinant);
 
                         System.out.println();
 
